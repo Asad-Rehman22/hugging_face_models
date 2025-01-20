@@ -1,6 +1,10 @@
-from Translation_App import create_app
+from flask import Flask
+from config import Config
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
 
-app = create_app()
+    from routes.api import bp as api_bp
+    app.register_blueprint(api_bp, url_prefix='/api')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    return app
