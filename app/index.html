@@ -15,55 +15,129 @@
             align-items: center;
             height: 100vh;
         }
-
+        
         .translator-container {
             background: #ffffff;
-            padding: 20px;
+            padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            width: 500px;
             text-align: center;
         }
-
+        
         .translator-container h2 {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             color: #333;
         }
-
-        textarea {
+        
+        select, textarea {
             width: 100%;
-            height: 100px;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            resize: none;
+            font-size: 18px;
         }
-
+        
         button {
             background-color: #007BFF;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
         }
-
+        
         button:hover {
             background-color: #0056b3;
         }
-
+        
         .output {
-            margin-top: 15px;
-            font-size: 14px;
+            margin-top: 20px;
+            font-size: 16px;
             color: #555;
         }
+        
     </style>
 </head>
 <body>
     <div class="translator-container">
         <h2>Language Translator</h2>
+
+        <select id="languageSelector">
+            <option value="en-to-es">English to Spanish</option>
+            <option value="es-to-en">Spanish to English</option>
+            <option value="fr-to-en">French to English</option>
+            <option value="en-to-fr">English to French</option>
+            <option value="de-to-en">German to English</option>
+            <option value="en-to-de">English to German</option>
+            <option value="en-to-it">English to Italian</option>
+            <option value="it-to-en">Italian to English</option>
+            <option value="en-to-pt">English to Portuguese</option>
+            <option value="pt-to-en">Portuguese to English</option>
+            <option value="en-to-ru">English to Russian</option>
+            <option value="ru-to-en">Russian to English</option>
+            <option value="en-to-ur">English to Urdu</option>
+            <option value="ur-to-en">Urdu to English</option>
+            <option value="en-to-zh">English to Chinese</option>
+            <option value="zh-to-en">Chinese to English</option>
+            <option value="en-to-ja">English to Japanese</option>
+            <option value="ja-to-en">Japanese to English</option>
+            <option value="en-to-ar">English to Arabic</option>
+            <option value="ar-to-en">Arabic to English</option>
+            <option value="en-to-hi">English to Hindi</option>
+            <option value="hi-to-en">Hindi to English</option>
+            <option value="en-to-bn">English to Bengali</option>
+            <option value="bn-to-en">Bengali to English</option>
+            <option value="en-to-ta">English to Tamil</option>
+            <option value="ta-to-en">Tamil to English</option>
+            <option value="en-to-ko">English to Korean</option>
+            <option value="ko-to-en">Korean to English</option>
+            <option value="en-to-th">English to Thai</option>
+            <option value="th-to-en">Thai to English</option>
+            <option value="en-to-vi">English to Vietnamese</option>
+            <option value="vi-to-en">Vietnamese to English</option>
+            <option value="en-to-uk">English to Ukrainian</option>
+            <option value="uk-to-en">Ukrainian to English</option>
+            <option value="en-to-pl">English to Polish</option>
+            <option value="pl-to-en">Polish to English</option>
+            <option value="en-to-sv">English to Swedish</option>
+            <option value="sv-to-en">Swedish to English</option>
+            <option value="en-to-fi">English to Finnish</option>
+            <option value="fi-to-en">Finnish to English</option>
+            <option value="en-to-no">English to Norwegian</option>
+            <option value="no-to-en">Norwegian to English</option>
+            <option value="en-to-da">English to Danish</option>
+            <option value="da-to-en">Danish to English</option>
+            <option value="en-to-cs">English to Czech</option>
+            <option value="cs-to-en">Czech to English</option>
+            <option value="en-to-sl">English to Slovenian</option>
+            <option value="sl-to-en">Slovenian to English</option>
+            <option value="en-to-lt">English to Lithuanian</option>
+            <option value="lt-to-en">Lithuanian to English</option>
+            <option value="en-to-hu">English to Hungarian</option>
+            <option value="hu-to-en">Hungarian to English</option>
+            <option value="en-to-ro">English to Romanian</option>
+            <option value="ro-to-en">Romanian to English</option>
+            <option value="en-to-bg">English to Bulgarian</option>
+            <option value="bg-to-en">Bulgarian to English</option>
+            <option value="en-to-tr">English to Turkish</option>
+            <option value="tr-to-en">Turkish to English</option>
+            <option value="en-to-el">English to Greek</option>
+            <option value="el-to-en">Greek to English</option>
+            <option value="en-to-sq">English to Albanian</option>
+            <option value="sq-to-en">Albanian to English</option>
+            <option value="en-to-hr">English to Croatian</option>
+            <option value="hr-to-en">Croatian to English</option>
+            <option value="en-to-sr">English to Serbian</option>
+            <option value="sr-to-en">Serbian to English</option>
+            <option value="en-to-zh">English to Chinese</option>
+            <option value="zh-to-en">Chinese to English</option>
+            <option value="en-to-ur">English to Urdu</option>
+            <option value="ur-to-en">Urdu to English</option>
+        </select>
+
         <textarea id="inputText" placeholder="Enter text here..."></textarea>
         <textarea id="outputText" placeholder="Translation will appear here..." readonly></textarea>
         <button id="translateBtn">Translate</button>
@@ -73,7 +147,7 @@
     <script>
         document.getElementById("translateBtn").addEventListener("click", function() {
             const inputText = document.getElementById("inputText").value;
-            const direction = inputText.match(/[a-zA-Z]/) ? "en-to-es" : "es-to-en";
+            const selectedDirection = document.getElementById("languageSelector").value;
 
             if (!inputText) {
                 alert("Please enter text to translate!");
@@ -87,7 +161,7 @@
                 },
                 body: JSON.stringify({
                     text: inputText,
-                    direction: direction
+                    direction: selectedDirection
                 })
             })
             .then(response => response.json())
