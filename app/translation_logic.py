@@ -16,5 +16,5 @@ def translate(text, model_name):
     Perform translation using the specified model.
     """
     model = load_model(model_name)
-    result = model(text, max_length=100)
+    result = model(text, max_length=400)
     return result[0]["translation_text"]
