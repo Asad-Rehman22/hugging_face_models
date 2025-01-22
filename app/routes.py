@@ -2,12 +2,7 @@ from flask import Blueprint, request, jsonify
 from translation_logic import translate
 from transformers import pipeline
 from textblob import TextBlob
-import spacy
 from flask_caching import Cache
-
-# Load the Spacy language model for NER
-nlp = spacy.load("D:\\Semester 4\\Lib\\site-packages\\spacy\\data\\en_core_web_sm")
-
 
 # Flask-Caching configuration
 cache_config = {
@@ -91,8 +86,8 @@ model_map = {
 # Load a text correction model (optional)
 text_correction = pipeline("text2text-generation", model="google/mt5-small")
 
-# Load named entity recognition (NER) model
-ner_model = pipeline("ner")
+# Named entity recognition using Hugging Face's NER pipeline
+ner_model = pipeline("ner", grouped_entities=True)
 
 def autocorrect_sentence(text):
     blob = TextBlob(text)
@@ -101,8 +96,7 @@ def autocorrect_sentence(text):
 
 @cache.memoize(timeout=3600)
 def extract_entities(text):
-    doc = nlp(text)  # Use Spacy's NER model
-    entities = [(ent.text, ent.label_) for ent in doc.ents]
+    entities = ner_model(text)  # Use Hugging Face's NER model
     return entities
 
 def generate_meaningful_response(translated_text):
